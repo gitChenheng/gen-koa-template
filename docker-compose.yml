@@ -1,0 +1,35 @@
+version: "3"
+
+#端口 a:b a宿主机 b容器, 访问 ip:a=>ip:b ip:a1=>ip:b
+services:
+
+  redis:
+    image: "redis:latest"
+    ports:
+    - "6379:6379"
+    restart: always
+    labels:
+      NAME: "toolkit"
+    networks:
+      - app-network
+
+  mysql:
+    environment:
+      MYSQL_DATABASE: "toolkit_test"
+      MYSQL_ROOT_PASSWORD: "fm@2020"
+    image: "mysql:5.7"
+    restart: always
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    command: [ 'mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci' ]
+    networks:
+      - app-network
+
+volumes:
+  mysql-data:
+
+networks:
+  app-network:
+    driver: bridge

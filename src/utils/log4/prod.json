@@ -1,0 +1,19 @@
+{
+  "replaceConsole": true,
+  "appenders": {
+    "cheese": {
+      "type": "dateFile",
+      "filename": "logs/cheese.log",
+      "layout": {
+        "type": "pattern",
+        "pattern": "%d %p %c %m"
+      },
+      "pattern": ".yyyy-MM-dd-hh",
+      "keepFileExt": true,
+      "alwaysIncludePattern": true
+    }
+  },
+  "categories": {
+    "default": { "appenders": [ "cheese" ], "level": "error" }
+  }
+}

@@ -1,0 +1,35 @@
+--babel
+    $ npm install --save-dev babel-cli babel-preset-env # babel-cli 和 es6+ 最新语法
+    $ npm install --save-dev babel-preset-stage-0 # es6+ 阶段性提案语法 stage-0 包含stage1,2,3
+    $ npm install --save-dev babel-register # 钩子，在程序入口文件引入即可实现转码
+    $ npm install --save babel-polyfill # babel转码时不能识别一些全局对象的API，例如Object.assign，使用它可以解决这个问题
+
+--tsconfig
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+    "lib": [ "es2015" ]
+
+--package.json
+    type:modules 意味着使用ES6module
+
+--关于"@" alias的配置：
+    tsconfig内配置baseUrl、paths：
+    "baseUrl": "./",
+    "paths": {
+        "@/*": ["./*"]
+    },
+
+    module-alias/register包的引入才能使用 @ 否则只能使用相对路径查找
+
+--关于 serve middleware
+    /**
+     * maxage浏览器缓存的最大寿命（以毫秒为单位）。默认为0
+     * hidden允许传输隐藏文件。默认为false
+     * index 默认文件名，默认为“ index.html”
+     * defer如果为true，则在服务之后return next()，允许任何下游中间件首先响应。
+     * gzip 当客户端支持gzip且所请求的扩展名为.gz的文件存在时，请尝试自动提供文件的gzip压缩版本。默认为true。
+     * br 当客户端支持brotli并且存在所请求的扩展名为.br的文件时，请尝试自动提供文件的brotli版本（请注意，仅通过https接受brotli）。默认为true。
+     * setHeaders函数，用于在响应时设置自定义标头。
+     * extensionsURL中没有扩展名时，尝试匹配传递的数组中的扩展名以搜索文件。首次发现是送达的。（默认为false）
+     */
